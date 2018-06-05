@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="angular.js"></script>
+    <style>
+        #gwc,#gwc1{
+
+        }
+        table{
+            width: 50%;
+        }
+    </style>
+    <script>
+        var app = angular.module("myApp",[]);
+        var list=[
+            {name:"qq",price:12.6,number:3,state:false},
+            {name:"wx",price:23.9,number:1,state:false},
+            {name:"aa",price:99.9,number:1,state:false},
+            {name:"bb",price:10.9,number:5,state:false},
+            {name:"cc",price:10.9,number:5,state:false},
+            {name:"qq",price:12.6,number:3,state:false},
+            {name:"wx",price:23.9,number:1,state:false},
+            {name:"aa",price:99.9,number:1,state:false},
+            {name:"bb",price:10.9,number:5,state:false},
+            {name:"cc",price:10.9,number:5,state:false}
+        ];
+        app.controller("myCtrl",function ($scope) {
+            //异步请求函数封装
+            $scope.get = function () {
+                $http.get("/get", {params: {param: $scope.param}})
+                    .success(function (data, header, config, status) {
+                        console.log(data);
+                    })
+                    .error(function (response) {
+                        console.log(response);
+                    })
+                ;
+            };
+
+            $scope.post = function () {
+                $http.post("/post", $scope.list)
+                    .success(function (data, header, config, status) {
+                        console.log(data);
+                    })
+                    .error(function (data, header, config, status) {
+                        console.log(data);
+                    })
+                ;
+            };
+            //购物车数据
+            $scope.arr=list;
+            /*当点击”-”按钮时输入框中的数量减1,商品小计和总价*/
+            $scope.jian=function (index) {
+                if($scope.arr[index].number>1){
+                    $scope.arr[index].number--;
+                }
+                else if($scope.arr[index].number==1){
+                    if(confirm("用户是否删除该商品")){
+                        $scope.arr.splice(index,1);
+                    }
+                }
+                //发起异步请求，将更新后购物车数据传给后台;跨域情况待确认！
+
+            };
+            /*点击”+”按钮输入框中的数量加1,同时可以计算出商品小计,和购物 车总价*/
+            $scope.jia=function (index) {
+                $scope.arr[index].number++;
+            };
+            /*计算总价格*/
+            $scope.allSum=function () {
+                var allPrice=0;
+                for(var i=0;i<$scope.arr.length;i++){
+                    allPrice+=$scope.arr[i].price*$scope.arr[i].number;
+                }
+                return allPrice;
+            };
+
+            /*清空购物车*/
+            $scope.alldel=function () {
+                if($scope.arr.length==0){
+                    alert("您的购物车已空");
+                }else{
+                    $scope.arr=[];
+                }
+            }
+            /*批量删除*/
+            $scope.pi=function () {
+                for(var i=0;i<$scope.arr.length;i++){
+                    if($scope.arr[i].state==true){
+                        $scope.arr.splice(i,1);
+                        i--;
+                        $scope.allCheck = false;
+                    }
+                }
+            }
+            //全选
+            $scope.allCheck=false;
+            $scope.allx= function () {
+                for(var i=0;i<$scope.arr.length;i++){
+                    if($scope.allCheck==true){
+                        $scope.arr[i].state=true;
+                    }else {
+                        $scope.arr[i].state=false;
+                    }
+                }
+            };
+            $scope.itemCheck = function () {
+                var flag = 0;
+                for(var i = 0; i<$scope.arr.length; i++){
+                    if($scope.arr[i].state == true){
+                        flag ++;
+                    }
+                }
+                if(flag == $scope.arr.length){
+                    $scope.allCheck = true;
+                }else{
+                    $scope.allCheck = false;
+                }
+            };
+
+            /*删除条目*/
+            $scope.del=function (index) {
+                if(confirm("确定移除此项嘛？")){
+                    $scope.arr.splice(index,1);
+                }
+            }
+            //判断数据源的长度，当商品数组为空时，将该购物表格隐藏“ng-hide=true”
+            $scope.getSize = function(){
+                if($scope.arr.length > 0 ){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+        })
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+    <table border="1" width="600px" ng-hide="false" class="table table-striped text-center">
+        <tr>
+            <td colspan="6"><h2>我的购物车</h2></td>
+        </tr>
+        <tr>
+            <td colspan="6" align="right"><button class="btn  btn-sm" id="gwc1" ng-click="pi()">批量删除</button>&nbsp;&nbsp;&nbsp;<button class="btn  btn-sm" id="gwc" ng-click="alldel()">清空购物车</button></td>
+        </tr>
+        <tr class="text-center">
+            <td><input type="checkbox" ng-click="allx()" ng-model="allCheck"></td>
+            <th>姓名</th>
+            <th>价格</th>
+            <th>数量</th>
+            <th>总价</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="item in arr">
+            <td><input type="checkbox" ng-model="item.state" ng-click="itemCheck()"/></td>
+            <td>{{item.name}}</td>
+            <td>{{item.price | currency:"￥："}}</td>
+            <td><button class="btn btn-sm" ng-click="jian($index)">-</button>
+                <input type="text" value="{{item.number}}" ng-model="item.number" class="text-center"/>
+                <button class="btn  btn-sm" ng-click="jia($index)">+</button>
+            </td>
+            <td>{{item.price*item.number | currency:"￥："}}</td>
+            <td><button class="btn btn-sm" ng-click="del($index)">删除</button></td>
+        </tr>
+        <tr>
+            <td colspan="6">总金额<span ng-bind="allSum()|currency:'￥：'"></span></td>
+        </tr>
+    </table>
+    <span ng-show="getSize()">您的购物车为空，请先逛<a href="http://localhost:63342/untitled/%E6%9C%88%E8%80%83%E7%BB%83%E4%B9%A0/yuekaolx.html?_ijt=t1jq3opnn8u8qofat6nb7v54ec">购物车</a></span>
+    <br>
+<button class="btn go">跳转</button>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        $(".go").click(function () {
+            //location.href="https://blog.csdn.net/sylcc_/article/details/50727105?a=2"
+            open("https://blog.csdn.net/sylcc_/article/details/50727105?a=2")
+        })
+    </script>
+</body>
+</html>

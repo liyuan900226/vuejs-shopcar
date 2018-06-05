@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        #b{
+            width: 360px;
+            height: 200px;
+            background-color: #dddddd;
+        }
+        img{
+            width: 100%;
+        }
+        table td{
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p v-html="hello"></p>
+    <table class="table table-striped text-center">
+        <tr>
+            <td colspan="6"><h1>我的购物车</h1></td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <button class="pull-right" @click="pi()">批量删除</button>
+                <button class="pull-right" @click="none()">清空购物车</button>
+            </td>
+        </tr>
+        <tr>
+            <td><input @click="allpick()" v-model="allcheck" type="checkbox"></td>
+            <td>姓名</td>
+            <td>价格</td>
+            <td>数量</td>
+            <td>总价</td>
+            <td>操作</td>
+        </tr>
+        <tr v-for="(item,index) in title">
+            <td><input @click="check(item)" type="checkbox" v-model="item.state" ></td>
+            <td>{{item.name}}</td>
+            <td>{{item.price.toFixed(2)}}</td>
+            <td><button @click="reduce(item,index)" class="btn btn-sm">-</button>{{item.number}}<button @click="add(item)" class="btn btn-sm">+</button></td>
+            <td>{{item.price*item.number.toFixed(2)}}</td>
+            <td><button class="btn btn-sm" @click="del(index)">删除</button></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="text-right">总价：{{total()}}</td>
+        </tr>
+    </table>
+    <h3>测试</h3>
+    <p>{{a}}</p>
+    <p>条件判断：</p>
+    <div>
+        <input type="text"  v-model="type" placeholder="请输入大写A、B、C">
+        <div>输入的是：</div>
+        <div v-if="type === 'A'">
+            A
+        </div>
+        <div v-else-if="type === 'B'">
+            B
+        </div>
+        <div v-else-if="type === 'C'">
+            C
+        </div>
+        <div v-else>
+            Not A/B/C
+        </div>
+    </div>
+</div>
+<script>
+    var vm=new Vue({
+        el: '#app',
+        data: {
+            hello: "<h1>Hello Vue.js!<h1>",
+            title:[
+                {name:"qq",price:12.6,number:3,state:false},
+                {name:"wx",price:23.9,number:1,state:false},
+                {name:"aa",price:99.9,number:1,state:false},
+                {name:"bb",price:10.9,number:5,state:false},
+                {name:"cc",price:10.9,number:5,state:false},
+                {name:"qq",price:12.6,number:3,state:false},
+                {name:"wx",price:23.9,number:1,state:false},
+                {name:"aa",price:99.9,number:1,state:false},
+                {name:"bb",price:10.9,number:5,state:false},
+                {name:"cc",price:10.9,number:5,state:false}
+            ],
+            allcheck:false,
+            a:"",
+            type:"",//条件判断使用
+        },
+        methods: {
+            details: function() {
+                return  this.msg + " - 的不仅是技术，更是梦想！";
+            },
+            //总价
+            total:function(){
+                var allprice=0;
+                for(var i=0;i<this.title.length;i++){
+                    allprice+=this.title[i].price*this.title[i].number
+                }
+                return allprice.toFixed(2);
+            },
+            //数量减少
+            reduce:function(item,index){
+                if (item.number===1){
+                    confirm("删除该商品？");
+                    this.title.splice(index,1);
+                    return;
+                }
+               item.number--;
+            },
+            //数量增加
+            add:function(item){
+              item.number++;
+            },
+            //删除当前行
+            del:function(index){
+                this.title.splice(index,1);
+            },
+            //批量删除
+            pi:function(){
+                for(var i=0;i<this.title.length;i++){
+                    if(this.title[i].state===true){
+                        this.title.splice(i,1);
+                        i--;
+                    }
+                }
+            },
+            //清空购物车
+            none:function(){
+                this.title=[]
+            },
+            //全选框
+            allpick:function(){
+                if(this.allcheck==false){
+                    for(var i=0;i<this.title.length;i++){
+                        this.title[i].state=true;
+                    }
+                }else{
+                    for(var i=0;i<this.title.length;i++){
+                        this.title[i].state=false;
+                    }
+                }
+            },
+            //条目中的复选框，也可以通过监听属性监听
+
+            check:function(item){
+                var f=0;
+                if(item.state==false){
+                    item.state=true
+                }else{
+                    item.state=false
+                }
+                for(var i=0;i<this.title.length;i++){
+                    if(this.title[i].state==true){
+                        f++;
+                    }
+                }
+                console.log(f);
+                console.log(this.title.length);
+                if(f===this.title.length){
+                    this.allcheck=true;
+                }else{
+                    this.allcheck=false;
+                }
+            }
+        },
+        watch:{
+            allcheck:function () {//监听title的改变，只能监听第一层数据！！！！！
+                console.log("全选状态改变了！");
+            },
+            title:{//深度监听！！！！！
+                handler:function(e){
+                    console.log(e);//e就是改变后的title
+                    this.a="监听到title改变了！";
+                    console.log(this.a)
+                },
+                deep:true,
+            }
+        }
+    });
+</script>
+</body>
+</html>
