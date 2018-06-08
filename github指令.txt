@@ -1,0 +1,20 @@
+1、从本地上传到远程仓库
+	git init
+	git config user.name "liyuan"
+	git config user.email "liyuan900226@163.com"
+	git add .
+	git commit -m "first commit"
+	git remote add origin git@github.com:liyuan900226/vuejs-shopcar.git  //如果是http的话需要登录
+	如果提示：$ git remote add origin https://github.com/liyuan900226/gxra1.git
+		  fatal: remote origin already exists.
+		需要把config文件的 [remote "origin"]  三行删掉，貌似也可以跳过这一步
+	git push -u origin master
+
+	****有时候会出现：master -> master (non-fast-forward)  因为远程仓库的readme文件没pull下来，需要执行git pull --rebase origin master 
+2、从本地更新到远程仓库
+	git add .
+	git commit -m "first commit"
+	git push -u origin master
+
+3、从远程克隆：
+	git clone git@github.com:liyuan900226/vuejs-shopcar.git

@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="vue.min.js"></script>
     <link rel="stylesheet" href="bootstrap.css">
+    <script src="jquery-1.11.3.js"></script>
     <style>
         #b{
             width: 360px;
@@ -92,6 +93,24 @@
             allcheck:false,
             a:"",
             type:"",//条件判断使用
+        },
+        created:function(){//ajax一般放在要渲染绑定数据的时候
+            var datas=this;//ajax里面的this指向xhr对象
+            $.ajax({     //result:{age:20,ename:"Tom"}
+                url:"http://192.168.2.111/data/5.php?",
+                type:"get",
+                contentType:"application/x-www-form-urlencoded",
+                data:{},
+                async:false,//异步请求页面会先加载12.6，然后在加载20
+                dataType:'json',
+                success:function(result) {
+                    console.log(datas.title[0].price);
+                    datas.title[0].price=result.age   //请求到的数据渲染给title
+                },
+                error:function(result){
+                    console.log("AJAX ERROR",result);
+                }
+            });
         },
         methods: {
             details: function() {
