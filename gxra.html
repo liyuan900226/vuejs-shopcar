@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.css">
+    <link href="css/aos.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/basic.js" type="text/javascript"></script>
+    <script src="js/scrollReveal.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/aos.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>Hello App!</h1>
+    <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <!-- 路由的命名视图，可以在一个页面展示多个视图-->
+        <router-view class="view one">         </router-view>            <!-- 首页内容-->
+        <router-view class="view two" name="a"></router-view>  <!-- 详情页2内容-->
+        <router-view class="view three" name="b"></router-view><!-- 详情页1内容-->
+    </p>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+</div>
+<!-- 首页内容 -->
+<script type="text/html" id="index_html">
+    <nav class="navbar navbar-default navbar-fixed-top home_nav" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id="logo" style="padding: 0" href="#" class="navbar-brand nav-title">
+                    <img src="images/logo.png" alt="">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right text-center">
+                    <li class="active"><a href="#">首页</a></li>
+                    <li class=""><a href="about.html">关于我们</a></li>
+                    <li class=""><a href="business.html">业务范围</a></li>
+                    <li class=""><a href="case.html">成功案例</a></li>
+                    <li class=""><a href="news.html">新闻中心</a></li>
+                    <li class=""><a href="contact.html">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="nav_bottom"></div>
+</script>
+<!-- 详情页1内容 -->
+<script type="text/html" id="detail_1_html">
+    <div class="footer">
+        <div class="container">
+            <div class="row text-center foot_1">
+                <p>河南国信瑞安科技有限公司</p>
+            </div>
+            <div class="row text-center foot_2">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <img src="images/sy_dbdh.png" alt="">
+                    <span>400-187-9119</span>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <img src="images/sy_dbyx.png" alt="">
+                    <span>888888888@qq.com</span>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <img src="images/sy_dbdz.png" alt="">
+                    <span>郑州市金水区金水路兴达通苑</span>
+                </div>
+            </div>
+            <div class="row text-center foot_3">
+                <p>豫ICP13006/92号</p>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 详情页2内容 -->
+<script type="text/html" id="detail_2_html">
+<div>
+
+
+    <div class="home_banner container-fluid">
+        <div class="row">
+
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img style="min-height: 200px" class="img-responsive" src="images/sy_banner1.jpg" alt=""></div>
+                    <div class="swiper-slide"><img style="min-height: 200px" class="img-responsive" src="images/sy_banner2.jpg" alt=""></div>
+                </div>
+
+                <div class="swiper-pagination swiper-pagination-white"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container home_about">
+        <div class="row">
+            <div  data-aos="zoom-in-up" class="col-xs-12 text-center home_title">
+                <h3><b>关于</b><span>我们</span></h3>
+                <h4>ABOUT&nbsp;US</h4>
+            </div>
+            <div data-aos="zoom-in" class="hidden-xs col-xs-12 col-sm-4 col-sm-push-8 col-md-push-8">
+                <img src="images/sy_gywm.jpg" class="img-responsive" alt="">
+            </div>
+            <div data-aos="fade-right" class="col-xs-12 col-sm-8 col-sm-pull-4 col-md-pull-4 home_about_p">
+                <p class="home_about_p1">河南国信瑞安科技有限公司</p>
+                <p class="home_about_p2">河南国信瑞安科技有限公司于2016年在郑州成立，是一家集网站建设、网络推广、软件开发系统集成、服务外包等多项业务于一体的综合性网络服务公司。公司以高科技为起点、以创新为核心、以强大的技术队伍为支撑，致力于为政府、企业、个人提供高技术含量的各类网络应用解决方案。
+                </p>
+                <a href="about.html"><img src="images/ckgd_1.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="container">
+            <div class="row">
+                <div data-aos="zoom-in-up" class="col-xs-12 text-center home_title">
+                    <h3><b>业务</b><span>范围</span></h3>
+                    <h4>BUSINESS&nbsp;AREA</h4>
+                </div>
+            </div>
+        </div>
+        <div class="home_business">
+            <div class="container">
+                <div class="row">
+                    <div data-aos="zoom-in" class="col-xs-6 col-sm-4 col-md-4 home_business_img">
+                        <div class="text-center">
+                            <div class="home_business_img1"></div>
+                            <p>OA系列</p>
+                        </div>
+                    </div>
+                    <div data-aos="zoom-in" class="col-xs-6 col-sm-4 col-md-4 home_business_img">
+                        <div class="text-center">
+                            <div class="home_business_img2"></div>
+                            <p>OA系列</p>
+                        </div>
+                    </div>
+                    <div data-aos="zoom-in" class="col-xs-6 col-sm-4 col-md-4 home_business_img">
+                        <div class="text-center">
+                            <div class="home_business_img3"></div>
+                            <p>OA系列</p>
+                        </div>
+                    </div>
+                    <div data-aos="zoom-in" class="col-xs-6 col-sm-4 col-md-4 home_business_img">
+                        <div class="text-center">
+                            <div class="home_business_img4"></div>
+                            <p>OA系列</p>
+                        </div>
+                    </div>
+                    <div data-aos="zoom-in" class="col-xs-6 col-sm-4 col-md-4 home_business_img">
+                        <div class="text-center">
+                            <div class="home_business_img5"></div>
+                            <p>OA系列</p>
+                        </div>
+                    </div>
+                    <div data-aos="zoom-in" class="col-xs-6 col-sm-4 col-md-4 home_business_img">
+                        <div class="text-center">
+                            <div class="home_business_img6"></div>
+                            <p>OA系列</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" data-aos="zoom-in">
+                        <img style="margin: 0 auto" src="images/ckgd_2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div  data-aos="zoom-in-up" class="col-xs-12 text-center home_title">
+                <h3><b>服务</b><span>优势</span></h3>
+                <h4>SERVICE&nbsp;ADVANTAGES</h4>
+            </div>
+        </div>
+        <div class="row home_service">
+            <div data-aos="fade-right"  class="col-xs-12 col-sm-4 col-md-4">
+                <div class="home_service_container">
+                    <img src="images/sy_fwys1.png" alt="">
+                    <br>
+                    <p>从创始至今，我们的业务方向始终不变，专注做好一件事才能更好的追求高品质。
+                    </p>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div data-aos="zoom-in" class="col-xs-12 col-sm-4 col-md-4">
+                <div class="home_service_container">
+                    <img src="images/sy_fwys2.png" alt="">
+                    <br>
+                    <p>在不断的创新和实践中总结出可持续和可信赖的设计流程，坚持与用户一起思考。
+                    </p>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div data-aos="fade-left" class="col-xs-12 col-sm-4 col-md-4">
+                <div class="home_service_container">
+                    <img src="images/sy_fwys3.png" alt="">
+                    <br>
+                    <p>我们积累了大量优秀的项目案例，并验证了设计的价值。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home_lunbo_2 container-fluid">
+        <div class="row">
+
+            <div class="swiper-container_2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" >
+                        <img class="img-responsive" src="images/b1.jpg" alt="">
+                    </div>
+                    <div class="swiper-slide" >
+                        <img class="img-responsive" src="images/b2.jpg" alt="">
+                    </div>
+                    <div class="swiper-slide" >
+                        <img class="img-responsive" src="images/b3.jpg" alt="">
+                    </div>
+                    <div class="swiper-slide" >
+                        <img class="img-responsive" src="images/b4.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="swiper-pagination swiper-pagination-white hidden-xs"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div data-aos="zoom-in-up" class="col-xs-12 text-center home_title">
+                <h3><b>成功</b><span>案例</span></h3>
+                <h4>SUCCESSFUL&nbsp;CASE</h4>
+            </div>
+        </div>
+    </div>
+    <div class="home_case">
+        <div class="container">
+            <div class="row">
+                <div data-scroll-reveal="wait 0.2s, then enter left and move 40px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/1.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">江苏金万丰集团金种子财富平台</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-scroll-reveal="wait 0.2s, then enter bottom and move 40px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/2.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">河南中锦供应链有限公司订单流转系统</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-scroll-reveal="wait 0.2s, then enter right and move 40px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/3.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">91信管家金融平台</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div data-scroll-reveal="wait 0.2s, then enter left and move 60px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/4.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">晋煤集团办公自动化系统</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-scroll-reveal="wait 0.2s, then enter bottom and move 60px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/5.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">南京江宁旅游局办公平台</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-scroll-reveal="wait 0.2s, then enter right and move 60px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/6.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">郑州伟盛融百信商城</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div data-scroll-reveal="wait 0.2s, then enter left and move 60px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/7.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">河南"微商城"电子商城平台</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-scroll-reveal="wait 0.2s, then enter bottom and move 60px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/8.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">建设银行信用卡催缴系统</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-scroll-reveal="wait 0.2s, then enter right and move 60px over 1s" class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="home_case_img">
+                        <div>
+                            <img src="images/success/9.png" alt="">
+                        </div>
+                        <div class="home_case_cover">
+                            <p class="text-center">北京华慕商城</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        autoplay: 2000,//可选选项，自动滑动
+        loop: true,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        //nextButton: '.swiper-button-next',
+        //prevButton: '.swiper-button-prev',
+        spaceBetween: 30,
+        effect: 'fade'
+    });
+    var swiper_2 = new Swiper('.swiper-container_2', {
+        autoplay: 2500,
+        loop:true,
+        mousewheel: true,
+        effect : 'fade',
+        pagination: '.swiper-pagination',//分页容器的css选择器
+        paginationType : 'custom',//自定义-分页器样式类型（前提）
+        //设置自定义分页器的内容
+        paginationCustomRender: function (swiper, current, total) {
+            var _html = '';
+            var t = "";
+            for (var i = 1; i <= total; i++) {
+                if (i == 1) {
+                    t = "规模大"
+                }else if (i == 2) {
+                    t = "客户多"
+                }else if (i == 3) {
+                    t = "技术好"
+                }else if (i==4){
+                    t="专&nbsp;&nbsp;&nbsp;业"
+                }
+                if (current == i) {
+                    _html += '<li  class="swiper-pagination-custom active">' + t + '</li>';
+                }else{
+                    _html += '<li  class="swiper-pagination-custom">' + t  + '</li>';
+                }
+            }
+            return _html;//返回所有的页码html
+        }
+    });
+    //为第二个轮播分页器绑定事件
+    $('.swiper-pagination').on('click','li',function(){
+        var index = $(this).index() + 2;
+        swiper_2.slideTo(index-1, 500, false);//切换到第一个slide，速度为1秒
+    });
+    base().scrollreveal();
+    //视差滚动
+    if(base().isPC()){
+        $(window).scroll(function(){
+            var h=document.getElementsByClassName("home_business")[0].offsetTop-$(window).height();
+            var h2=h+790+$(window).height();
+            var s=(($(window).scrollTop()-h)/790)*50+"%";
+            if($(window).scrollTop()>=h&&$(window).scrollTop()<=h2){
+                $(".home_business").css("background-position-y",s);
+            }
+        });
+    }
+    //动画
+    AOS.init({
+        duration: 1200
+    });
+    $(".home_business img").hover(function(){
+        $(this).attr("src","images/ckgd_xz.png")
+    },function () {
+        $(this).attr("src","images/ckgd_2.png")
+    })
+</script>
+<script>
+    // 0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
+    // 1. 定义（路由）组件。
+    // 可以从其他文件 import 进来
+    //console.log(1);
+    //import {firstName, lastName, year} from './exprot.js';
+    //console.log(year);
+    function getInnerHtml(name) {//根据id获取文档片段
+        return document.getElementById(name+"_html").innerHTML;
+    }
+    const Index = { template: getInnerHtml("index") };
+    const Foo   = {
+        template:  getInnerHtml("detail_1") ,
+        watch: {//通过watch属性
+            '$route' (to, from) {
+                // 对路由变化作出响应...？？？？？？？？？？？？？？？？？
+            }
+        }
+    };
+    const Bar   = { template:  getInnerHtml("detail_2") };
+
+    // 2. 定义路由每个路由应该映射一个组件。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者，只是一个组件配置对象。我们晚点再讨论嵌套路由。
+    const routes = [//现在是两个属性，还有第三个属性“name”
+        {//这个是进去默认页的路由
+            path: '/',
+            components:{//注意这里是“s”
+                default: Index,//首页
+                a: Bar,//详情页2
+                b: Foo//详情页1
+            }
+        },
+        { path: '/foo', component: Foo},
+        { path: '/bar', component: Bar },
+        { path: '/foo/:id', component: Foo,name:"index" },//这个动态路由是跟据后面的不同id展现不同的效果，也可以穿多个参数，在页面渲染时通过{{ $route.params.** }}接收。
+        { path: '/a', redirect: '/foo' },//路由重定向
+        { path: '/foo', component: Foo, alias: '/b' }//路由别名，“别名”的功能让你可以自由地将 UI 结构映射到任意的 URL，而不是受限于配置的嵌套路由结构。
+    ];
+
+    // 3. 创建 router 实例，然后传 `routes` 配置你还可以传别的配置参数, 不过先这么简单着吧。
+    const router = new VueRouter({
+        routes // （缩写）相当于 routes: routes
+    });
+
+    // 4. 创建和挂载根实例。记得要通过 router 配置参数注入路由，从而让整个应用都有路由功能
+    const app = new Vue({
+        router
+    }).$mount('#app')
+
+    // 现在，应用已经启动了！
+</script>
+</body>
+</html>
+</html>

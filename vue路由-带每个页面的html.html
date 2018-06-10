@@ -15,7 +15,10 @@
         <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
         <router-link to="/">首页</router-link>
         <router-link to="/foo">详情页1</router-link>
-        <router-link to="/bar">详情页2</router-link>
+        <transition name="fade">
+            <router-link to="/bar">详情页2</router-link>
+        </transition>
+
         <!-- 用name绑定组件，哪怕组件名字换了，只要name不换就行b，不会绑定那么死-->
         <router-link :to="{ name: 'index', params: { id: 123 }}">这个也是详情页1</router-link>
         <!-- 路由的命名视图-->
@@ -51,6 +54,7 @@
             <li>详情页2</li>
             <li>详情页2</li>
         </ul>
+        <div>{{id}}</div>
     </script>
 <script>
     // 0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
@@ -71,7 +75,7 @@
             }
         }
     };
-    const Bar   = { template:  getInnerHtml("detail_2") };
+    const Bar   = { template:  getInnerHtml("detail_2") ,props:['id']};
 
     // 2. 定义路由每个路由应该映射一个组件。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者，只是一个组件配置对象。我们晚点再讨论嵌套路由。
     const routes = [//现在是两个属性，还有第三个属性“name”
@@ -81,7 +85,8 @@
         },
         { path: '/foo', component: Foo},
         { path: '/bar', component: Bar },
-        { path: '/foo/:id', component: Foo,name:"index" },//这个动态路由是跟据后面的不同id展现不同的效果，也可以穿多个参数，在页面渲染时通过{{ $route.params.** }}接收。
+        { path: '/foo/:id', component: Foo,name:"index" ,props:true},//这个动态路由是跟据后面的不同id展现不同的效果，也可以穿多个参数，在页面渲染时通过{{ $route.params.** }}接收。
+                                                                    //props  true   上线bar组件里面也要有对应props id，模板才能用到id
         { path: '/a', redirect: '/foo' },//路由重定向
         { path: '/foo', component: Foo, alias: '/b' }//路由别名，“别名”的功能让你可以自由地将 UI 结构映射到任意的 URL，而不是受限于配置的嵌套路由结构。
     ];
