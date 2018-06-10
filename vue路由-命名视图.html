@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>Hello App!</h1>
+    <p>
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+
+        <!-- 路由的命名视图，可以在一个页面展示多个视图-->
+        <router-view class="view one"></router-view>            <!-- 首页内容-->
+        <router-view class="view two" name="a"></router-view>  <!-- 详情页2内容-->
+        <router-view class="view three" name="b"></router-view><!-- 详情页1内容-->
+    </p>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+</div>
+<!-- 首页内容 -->
+<script type="text/html" id="index_html">
+    <ul>
+        <li>首页</li>
+        <li>首页</li>
+        <li>首页</li>
+    </ul>
+</script>
+<!-- 详情页1内容 -->
+<script type="text/html" id="detail_1_html">
+    <ul>
+        <li>详情页1</li>
+        <li>详情页1</li>
+        <li>详情页1</li>
+        <li>传进来的值是{{ $route.params.id }}</li>
+    </ul>
+</script>
+<!-- 详情页2内容 -->
+<script type="text/html" id="detail_2_html">
+    <ul>
+        <li>详情页2</li>
+        <li>详情页2</li>
+        <li>详情页2</li>
+    </ul>
+</script>
+<script>
+    // 0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
+    // 1. 定义（路由）组件。
+    // 可以从其他文件 import 进来
+    //console.log(1);
+    //import {firstName, lastName, year} from './exprot.js';
+    //console.log(year);
+    function getInnerHtml(name) {//根据id获取文档片段
+        return document.getElementById(name+"_html").innerHTML;
+    }
+    const Index = { template: getInnerHtml("index") };
+    const Foo   = {
+        template:  getInnerHtml("detail_1") ,
+        watch: {//通过watch属性
+            '$route' (to, from) {
+                // 对路由变化作出响应...？？？？？？？？？？？？？？？？？
+            }
+        }
+    };
+    const Bar   = { template:  getInnerHtml("detail_2") };
+
+    // 2. 定义路由每个路由应该映射一个组件。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者，只是一个组件配置对象。我们晚点再讨论嵌套路由。
+    const routes = [//现在是两个属性，还有第三个属性“name”
+        {//这个是进去默认页的路由
+            path: '/',
+            components:{//注意这里是“s”
+                default: Index,//首页
+                a: Bar,//详情页2
+                b: Foo//详情页1
+            }
+        },
+        { path: '/foo', component: Foo},
+        { path: '/bar', component: Bar },
+        { path: '/foo/:id', component: Foo,name:"index" },//这个动态路由是跟据后面的不同id展现不同的效果，也可以穿多个参数，在页面渲染时通过{{ $route.params.** }}接收。
+        { path: '/a', redirect: '/foo' },//路由重定向
+        { path: '/foo', component: Foo, alias: '/b' }//路由别名，“别名”的功能让你可以自由地将 UI 结构映射到任意的 URL，而不是受限于配置的嵌套路由结构。
+    ];
+
+    // 3. 创建 router 实例，然后传 `routes` 配置你还可以传别的配置参数, 不过先这么简单着吧。
+    const router = new VueRouter({
+        routes // （缩写）相当于 routes: routes
+    });
+
+    // 4. 创建和挂载根实例。记得要通过 router 配置参数注入路由，从而让整个应用都有路由功能
+    const app = new Vue({
+        router
+    }).$mount('#app')
+
+    // 现在，应用已经启动了！
+</script>
+</body>
+</html>
+</html>
