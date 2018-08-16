@@ -1,0 +1,10 @@
+.idea/
+*.pyc
+env.js
+.env
+/.git/
+.DS_Store
+config-bak.py
+config-bak.js
+node_modules/
+npm-debug.log
